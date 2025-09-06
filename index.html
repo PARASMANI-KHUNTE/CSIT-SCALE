@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CSIT S.C.A.L.E – Student Collaboration & Leadership Engine</title>
+  <meta name="description" content="A handbook website for CSIT S.C.A.L.E – Student Collaboration & Leadership Engine. Structured cells, workflows, succession, and digital tools for MCA students in the CSIT department." />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Tailwind config (extend if needed)
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ["Inter", "ui-sans-serif", "system-ui", "-apple-system", "Segoe UI", "Roboto", "Helvetica", "Arial", "Noto Sans", "sans-serif"],
+          },
+          boxShadow: {
+            soft: '0 10px 25px -10px rgba(0,0,0,0.2)'
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="font-display bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
+  <!-- Header -->
+  <header class="sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-white/70 bg-white/90 dark:bg-zinc-900/80 border-b border-zinc-200 dark:border-zinc-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center gap-3">
+      <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-emerald-500 to-cyan-500 flex items-center justify-center text-white font-bold shadow-soft">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M15 21v-1a6 6 0 00-5.197-5.983" />
+        </svg>
+      </div>
+      <div class="flex-1">
+        <h1 class="text-lg sm:text-xl font-bold tracking-tight">CSIT S.C.A.L.E</h1>
+      </div>
+      <div class="flex items-center gap-3 no-print">
+        <button id="menuOpen" class="lg:hidden px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 text-sm hover:bg-zinc-100 dark:hover:bg-zinc-800" aria-label="Open menu">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+        <button id="searchOpenMobile" class="sm:hidden px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 text-sm hover:bg-zinc-100 dark:hover:bg-zinc-800" aria-label="Search">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </button>
+        <button id="searchOpen" class="hidden sm:inline-flex px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 text-sm hover:bg-zinc-100 dark:hover:bg-zinc-800">Search</button>
+        <button id="themeToggle" class="px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 text-sm hover:bg-zinc-100 dark:hover:bg-zinc-800" aria-label="Toggle theme">🌙</button>
+        <a href="#download" onclick="window.print()" class="px-3 py-2 rounded-xl bg-emerald-600 text-white text-sm hover:bg-emerald-700">
+          <span class="hidden sm:inline">Print / Save PDF</span>
+          <span class="sm:hidden">PDF</span>
+        </a>
+      </div>
+    </div>
+  </header>
+  <div id="sidebarBackdrop" class="hidden fixed inset-0 bg-black/50 z-30"></div>
+
+  <!-- Layout -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-6 py-6 pt-24">
+    <!-- Sidebar -->
+    <nav id="sidebar" class="lg:block lg:col-span-3 space-y-4 no-print">
+      <div class="p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-soft">
+        <h2 class="text-sm font-semibold text-zinc-700 dark:text-zinc-300 mb-3">Quick Navigation</h2>
+        <ul class="space-y-2 text-sm" id="toc">
+          <li><a class="toc-link" href="#preface">Preface</a></li>
+          <li><a class="toc-link" href="#introduction">Introduction</a></li>
+          <li><a class="toc-link" href="#objectives">Objectives</a></li>
+          <li><a class="toc-link" href="#principles">Core Principles</a></li>
+          <li><a class="toc-link" href="#structure">Organizational Structure (Cells)</a></li>
+          <li><a class="toc-link" href="#workflow">Workflow</a></li>
+          <li><a class="toc-link" href="#succession">Succession & Knowledge Retention</a></li>
+          <li><a class="toc-link" href="#tools">Digital Tools Integration</a></li>
+          <li><a class="toc-link" href="#guidelines">Rules & Guidelines</a></li>
+          <li><a class="toc-link" href="#strengths">Strengths & Benefits</a></li>
+          <li><a class="toc-link" href="#challenges">Challenges & Weaknesses</a></li>
+          <li><a class="toc-link" href="#problems">Problems Solved</a></li>
+          <li><a class="toc-link" href="#conclusion">Conclusion</a></li>
+          <li><a class="toc-link" href="#diagrams">Diagrams & Flowcharts</a></li>
+        </ul>
+      </div>
+
+      <div class="p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-soft">
+        <h2 class="text-sm font-semibold text-zinc-700 dark:text-zinc-300 mb-3">Contacts</h2>
+        <p class="text-sm leading-6">
+          <span class="font-semibold">Proposed By:</span> Parasmani Khunte<br />
+          <span class="font-semibold">Email:</span> <a href="mailto:parasmanikhunte@gmail.com" class="underline">parasmanikhunte@gmail.com</a><br />
+          <span class="font-semibold">Phone:</span> <a href="tel:+918103713757" class="underline">+91 8103713757</a><br />
+          <span class="font-semibold">BCA 2025 Passout, CSIT Dept</span><br />
+          <span class="font-semibold">MCA 1st Semester, CSIT Dept</span>
+        </p>
+      </div>
+
+      <div class="p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-soft">
+        <h2 class="text-sm font-semibold text-zinc-700 dark:text-zinc-300 mb-3">Utilities</h2>
+        <button onclick="expandAll(true)" class="w-full mb-2 px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 text-sm hover:bg-zinc-100 dark:hover:bg-zinc-800">Expand All</button>
+        <button onclick="expandAll(false)" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 text-sm hover:bg-zinc-100 dark:hover:bg-zinc-800">Collapse All</button>
+      </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="lg:col-span-9 space-y-8">
+      <!-- Page Title Section -->
+      <section class="lg:hidden">
+        <h1 class="text-2xl font-bold tracking-tight text-zinc-800 dark:text-zinc-200">CSIT S.C.A.L.E – Student Collaboration & Leadership Engine</h1>
+        <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">A structured, student-led model for efficient operations, collaboration, and leadership development in the CSIT Dept.</p>
+      </section>
+      <!-- Intro Card -->
+      <section class="p-6 rounded-3xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-soft">
+        <div class="flex flex-wrap items-center gap-3 mb-4">
+          <span class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300 text-xs font-medium">Efficiency</span>
+          <span class="px-3 py-1 rounded-full bg-cyan-50 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-300 text-xs font-medium">Collaboration</span>
+          <span class="px-3 py-1 rounded-full bg-fuchsia-50 text-fuchsia-700 dark:bg-fuchsia-900/30 dark:text-fuchsia-300 text-xs font-medium">Leadership</span>
+          <span class="px-3 py-1 rounded-full bg-amber-50 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300 text-xs font-medium">Continuity</span>
+        </div>
+        <p class="text-lg leading-8 text-zinc-700 dark:text-zinc-300">CSIT S.C.A.L.E is a student-led operating system for the department—aligning activities to clear roles, digital tools, and a repeatable workflow so every batch achieves efficient execution, inclusive participation, and sustained leadership growth.</p>
+        <div class="mt-6">
+          <img src="https://lh3.googleusercontent.com/gps-cs-s/AC9h4npjDB05hag3DM_zpBn_yqZUI3uTU_a7Gz9T1bgIRxeXmiwO2x-QNZXuih92S9FkT37f9L8uOT41AVheCDF1qd-YYWWMWgMUu0AuhuCvflDoF6ahenf1FBpmKYrI1_73_MLgjjfzzB3W33b7=s1360-w1360-h1020-rw" alt="Students collaborating on a project" class="rounded-2xl shadow-soft">
+        </div>
+      </section>
+
+      <!-- Sections -->
+      <article id="preface" class="prose prose-zinc dark:prose-invert max-w-none">
+        <h2>Preface</h2>
+        <p>Every department thrives when its students are not only academically competent but also capable of managing their environment, events, and collaborative responsibilities. In the CSIT department, MCA students are tasked with organizing workshops, seminars, events, and coordinating with faculty and alumni. Traditionally, these tasks were executed in an unstructured manner, relying heavily on the initiative of one or two students, leaving others dependent and creating inefficiencies.</p>
+        <p>Recognizing this challenge, the CSIT S.C.A.L.E model was proposed to create a department-wide, student-led framework that fosters collaboration, leadership, and continuity. Structured cells, well-defined workflows, and integration with digital tools ensure that every student has a role, activities are managed efficiently, and knowledge is passed seamlessly from one batch to the next.</p>
+      </article>
+
+      <article id="introduction" class="prose prose-zinc dark:prose-invert max-w-none">
+        <h2>Introduction</h2>
+        <p>CSIT S.C.A.L.E, which stands for Student Collaboration & Leadership Engine, is a comprehensive model aimed at transforming how MCA students manage departmental activities. Unlike traditional event-focused models, this system encompasses all departmental functions including technical projects, cultural activities, workshops, alumni interactions, and placement collaborations.</p>
+        <p>By creating specialized cells, each tasked with specific responsibilities, the department operates like a well-organized organization. Every student knows their role, seniors mentor juniors, and the flow of knowledge is preserved digitally, ensuring that each subsequent batch can assume leadership roles with clarity and confidence.</p>
+      </article>
+
+      <article id="objectives" class="prose prose-zinc dark:prose-invert max-w-none">
+        <h2>Objectives</h2>
+        <p>The primary goal of CSIT S.C.A.L.E is to establish a self-sustaining, student-run system promoting efficiency, collaboration, and professional skill-building. This model empowers students to take ownership of departmental activities in a structured environment, ensures systematic knowledge transfer, provides inclusive opportunities, manages diverse tasks concurrently, and integrates digital platforms for smooth communication and record-keeping.</p>
+      </article>
+
+      <article id="principles" class="prose prose-zinc dark:prose-invert max-w-none">
+        <h2>Core Principles</h2>
+        <ul>
+          <li><strong>Collaboration:</strong> Tasks are shared; cells coordinate seamlessly.</li>
+          <li><strong>Synergy:</strong> Technical, cultural, and operational strengths are combined.</li>
+          <li><strong>Action-Oriented Execution:</strong> Plans are converted into accountable outcomes.</li>
+          <li><strong>Leadership Development:</strong> Seniors mentor juniors in a structured pipeline.</li>
+          <li><strong>Documentation:</strong> Processes are recorded to preserve continuity.</li>
+        </ul>
+      </article>
+
+      <section id="structure" class="space-y-6">
+        <h2 class="text-2xl font-semibold">Organizational Structure – Cells</h2>
+
+        <!-- Leadership -->
+        <details class="group p-5 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-soft" open>
+          <summary class="flex items-center justify-between cursor-pointer">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-500 to-cyan-500"></div>
+              <h3 class="text-lg font-semibold">Leadership</h3>
+            </div>
+            <span class="text-sm text-zinc-500 group-open:rotate-180 transition">▾</span>
+          </summary>
+          <p class="mt-3 text-zinc-700 dark:text-zinc-300">Two General Coordinators oversee all cells, mentor juniors, resolve inter-cell challenges, and serve as the primary link with faculty.</p>
+        </details>
+
+        <!-- Core Operational Cells grid -->
+        <details class="group p-5 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-soft" open>
+          <summary class="flex items-center justify-between cursor-pointer">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500 to-violet-500"></div>
+              <h3 class="text-lg font-semibold">Core Operational Cells</h3>
+            </div>
+            <span class="text-sm text-zinc-500 group-open:rotate-180 transition">▾</span>
+          </summary>
+          <div class="mt-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950/40">
+              <div class="flex items-center gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v.01M12 6v-1m0-1H8.501M12 6h3.499M12 18v-1m0-1H8.501M12 18h3.499m-3.499-4.01V14m0-1.01V12m0-1.01V10m0-1.01V8m0 0a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" />
+                </svg>
+                <h4 class="font-semibold">Finance Cell</h4>
+              </div>
+              <p class="text-sm text-zinc-600 dark:text-zinc-400">Manages budgets, sponsorships, donations, and transparent allocation.</p>
+            </div>
+            <div class="p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950/40">
+              <div class="flex items-center gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-cyan-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                </svg>
+                <h4 class="font-semibold">Technical Cell</h4>
+              </div>
+              <p class="text-sm text-zinc-600 dark:text-zinc-400">Handles websites, online registrations, coding projects, and IT support via GitHub.</p>
+            </div>
+            <div class="p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950/40">
+              <div class="flex items-center gap-3">
+                <svg xmlns="http://www.w.org/2000/svg" class="h-6 w-6 text-fuchsia-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.875 9.168-3.417l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.875 9.168-3.417" />
+                </svg>
+                <h4 class="font-semibold">Promotions & Media</h4>
+              </div>
+              <p class="text-sm text-zinc-600 dark:text-zinc-400">Social media, posters, newsletters, and department-wide announcements.</p>
+            </div>
+            <div class="p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950/40">
+              <div class="flex items-center gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <h4 class="font-semibold">Event Management</h4>
+              </div>
+              <p class="text-sm text-zinc-600 dark:text-zinc-400">Plans schedules, venues, logistics, and cross-cell coordination.</p>
+            </div>
+            <div class="p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950/40">
+              <h4 class="font-semibold">Documentation & Knowledge</h4>
+              <p class="text-sm text-zinc-600 dark:text-zinc-400">Maintains reports, manuals, archives, and reusable templates.</p>
+            </div>
+            <div class="p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950/40">
+              <h4 class="font-semibold">Discipline & Operations</h4>
+              <p class="text-sm text-zinc-600 dark:text-zinc-400">Permissions, crowd control, protocol adherence, and smooth operations.</p>
+            </div>
+          </div>
+        </details>
+
+        <!-- Creative & Cultural -->
+        <details class="group p-5 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-soft" open>
+          <summary class="flex items-center justify-between cursor-pointer">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-rose-500 to-amber-500"></div>
+              <h3 class="text-lg font-semibold">Creative & Cultural Cells</h3>
+            </div>
+            <span class="text-sm text-zinc-500 group-open:rotate-180 transition">▾</span>
+          </summary>
+          <div class="mt-4 grid sm:grid-cols-2 gap-4">
+            <div class="p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950/40">
+              <h4 class="font-semibold">Creativity & Design</h4>
+              <p class="text-sm text-zinc-600 dark:text-zinc-400">Decor, artwork, props, and consistent visual branding.</p>
+            </div>
+            <div class="p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950/40">
+              <h4 class="font-semibold">Cultural Cell</h4>
+              <p class="text-sm text-zinc-600 dark:text-zinc-400">Music, dance, drama, theatre, and talent showcases.</p>
+            </div>
+          </div>
+        </details>
+
+        <!-- Support & Expansion -->
+        <details class="group p-5 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-soft" open>
+          <summary class="flex items-center justify-between cursor-pointer">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-teal-500 to-lime-500"></div>
+              <h3 class="text-lg font-semibold">Support & Expansion Cells</h3>
+            </div>
+            <span class="text-sm text-zinc-500 group-open:rotate-180 transition">▾</span>
+          </summary>
+          <div class="mt-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950/40">
+              <h4 class="font-semibold">Hospitality</h4>
+              <p class="text-sm text-zinc-600 dark:text-zinc-400">Guest reception, refreshments, and backstage support.</p>
+            </div>
+            <div class="p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950/40">
+              <h4 class="font-semibold">Research & Innovation</h4>
+              <p class="text-sm text-zinc-600 dark:text-zinc-400">New ideas for events, workshops, and technical initiatives.</p>
+            </div>
+            <div class="p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950/40">
+              <h4 class="font-semibold">Alumni & Outreach</h4>
+              <p class="text-sm text-zinc-600 dark:text-zinc-400">Alumni connections, placement collaboration, lectures, and mentorship.</p>
+            </div>
+          </div>
+        </details>
+      </section>
+
+      <!-- Workflow -->
+      <section id="workflow" class="p-6 rounded-3xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-soft">
+        <h2 class="text-2xl font-semibold mb-4">Workflow of CSIT S.C.A.L.E</h2>
+        <ol class="list-decimal pl-5 space-y-2 text-zinc-700 dark:text-zinc-300">
+          <li><strong>Planning:</strong> Coordinators announce activities; each cell drafts responsibilities, resources, and deadlines.</li>
+          <li><strong>Preparation:</strong> Cells execute in parallel; weekly coordination meetings keep alignment; documentation is updated.</li>
+          <li><strong>Execution:</strong> Activities run as planned; coordinators monitor and resolve issues; media manages visibility.</li>
+          <li><strong>Review & Documentation:</strong> Feedback captured, finances reconciled, lessons learned archived.</li>
+        </ol>
+        <!-- Inline SVG flow -->
+        <div class="mt-6 overflow-x-auto">
+          <svg class="min-w-[640px] w-full" height="110" viewBox="0 0 820 110" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Workflow Diagram">
+            <defs>
+              <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+                <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000" flood-opacity="0.15" />
+              </filter>
+            </defs>
+            <g filter="url(#shadow)">
+              <rect x="10" y="20" rx="14" ry="14" width="180" height="70" class="fill-emerald-500"/>
+              <rect x="210" y="20" rx="14" ry="14" width="180" height="70" class="fill-cyan-500"/>
+              <rect x="410" y="20" rx="14" ry="14" width="180" height="70" class="fill-fuchsia-500"/>
+              <rect x="610" y="20" rx="14" ry="14" width="180" height="70" class="fill-amber-500"/>
+            </g>
+            <text x="100" y="60" dominant-baseline="middle" text-anchor="middle" class="fill-white font-bold">Planning</text>
+            <text x="300" y="60" dominant-baseline="middle" text-anchor="middle" class="fill-white font-bold">Preparation</text>
+            <text x="500" y="60" dominant-baseline="middle" text-anchor="middle" class="fill-white font-bold">Execution</text>
+            <text x="700" y="60" dominant-baseline="middle" text-anchor="middle" class="fill-white font-bold">Review</text>
+            <g stroke="#64748b" stroke-width="2" marker-end="url(#arrow)">
+              <line x1="190" y1="55" x2="210" y2="55" />
+              <line x1="390" y1="55" x2="410" y2="55" />
+              <line x1="590" y1="55" x2="610" y2="55" />
+            </g>
+            <defs>
+              <marker id="arrow" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L0,6 L9,3 z" fill="#64748b" />
+              </marker>
+            </defs>
+          </svg>
+        </div>
+      </section>
+
+      <!-- Succession -->
+      <section id="succession" class="p-6 rounded-3xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-soft">
+        <h2 class="text-2xl font-semibold mb-4">Succession & Knowledge Retention</h2>
+        <p class="text-zinc-700 dark:text-zinc-300">Participation progresses across semesters to ensure continuity and leadership growth.</p>
+        <div class="mt-4 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-emerald-50 dark:bg-emerald-900/20">
+            <h4 class="font-semibold">Semester 1</h4>
+            <p class="text-sm">Juniors observe and assist in tasks.</p>
+          </div>
+          <div class="p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-cyan-50 dark:bg-cyan-900/20">
+            <h4 class="font-semibold">Semester 2</h4>
+            <p class="text-sm">Shadow seniors and co-lead responsibilities.</p>
+          </div>
+          <div class="p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-fuchsia-50 dark:bg-fuchsia-900/20">
+            <h4 class="font-semibold">Semester 3</h4>
+            <p class="text-sm">Lead cells and mentor juniors.</p>
+          </div>
+          <div class="p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-amber-50 dark:bg-amber-900/20">
+            <h4 class="font-semibold">Semester 4</h4>
+            <p class="text-sm">Internships; juniors take over fully.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Digital Tools -->
+      <section id="tools" class="p-6 rounded-3xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-soft">
+        <h2 class="text-2xl font-semibold mb-4">Digital Tools Integration</h2>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800">
+            <h4 class="font-semibold">Discord</h4>
+            <p class="text-sm text-zinc-600 dark:text-zinc-400">Cell-wise channels, role-based access, pinned SOPs, archives.</p>
+          </div>
+          <div class="p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800">
+            <h4 class="font-semibold">Notion / Google Drive</h4>
+            <p class="text-sm text-zinc-600 dark:text-zinc-400">Templates, guides, event archives, and manuals.</p>
+          </div>
+          <div class="p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800">
+            <h4 class="font-semibold">GitHub</h4>
+            <p class="text-sm text-zinc-600 dark:text-zinc-400">Websites, codebases, and collaborative projects.</p>
+          </div>
+          <div class="p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800">
+            <h4 class="font-semibold">Trello / ClickUp</h4>
+            <p class="text-sm text-zinc-600 dark:text-zinc-400">Task boards for deadlines, owners, and progress.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Rules & Guidelines -->
+      <section id="guidelines" class="p-6 rounded-3xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-soft">
+        <h2 class="text-2xl font-semibold mb-4">Rules & Guidelines</h2>
+        <ul class="list-disc pl-5 space-y-2 text-zinc-700 dark:text-zinc-300">
+          <li>Seniors mentor juniors in every cell.</li>
+          <li>Financial transparency: all transactions documented and approved.</li>
+          <li>Weekly coordination meetings are mandatory.</li>
+          <li>Documentation Cell updates archives after each activity.</li>
+          <li>Creative & Cultural Cells support departmental workflows.</li>
+          <li>Formal handover occurs at the end of Semester 2.</li>
+        </ul>
+      </section>
+
+      <!-- Strengths & Challenges -->
+      <section id="strengths" class="p-6 rounded-3xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-soft">
+        <h2 class="text-2xl font-semibold mb-4">Strengths & Benefits</h2>
+        <div class="flex flex-wrap gap-2">
+          <span class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300 text-sm">Structure</span>
+          <span class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300 text-sm">Knowledge Continuity</span>
+          <span class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300 text-sm">Leadership Growth</span>
+          <span class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300 text-sm">Skill Development</span>
+          <span class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300 text-sm">Alumni Integration</span>
+          <span class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300 text-sm">Scalable</span>
+        </div>
+      </section>
+
+      <section id="challenges" class="p-6 rounded-3xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-soft">
+        <h2 class="text-2xl font-semibold mb-4">Challenges & Weaknesses</h2>
+        <p class="text-zinc-700 dark:text-zinc-300">Success depends on engagement and disciplined use of digital tools. Rules may slow rapid decisions if not balanced with autonomy and clear escalation paths.</p>
+      </section>
+
+      <section id="problems" class="p-6 rounded-3xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-soft">
+        <h2 class="text-2xl font-semibold mb-4">Problems Solved</h2>
+        <ul class="list-disc pl-5 space-y-2 text-zinc-700 dark:text-zinc-300">
+          <li>Replaces random task allocation with structured cell responsibilities.</li>
+          <li>Eliminates dependency on a few students through distributed leadership.</li>
+          <li>Prevents knowledge loss via documentation and handovers.</li>
+          <li>Integrates creativity through dedicated cultural and design cells.</li>
+          <li>Enhances placement exposure with alumni and outreach programs.</li>
+        </ul>
+      </section>
+
+      <section id="conclusion" class="p-6 rounded-3xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-soft">
+        <h2 class="text-2xl font-semibold mb-4">Conclusion</h2>
+        <p class="text-zinc-700 dark:text-zinc-300">CSIT S.C.A.L.E is a comprehensive, department-wide system ensuring efficient operations, leadership development, knowledge continuity, and career support. By organizing students into cells, integrating digital tools, and embedding succession planning, S.C.A.L.E transforms the CSIT department into a professional, collaborative, and future-ready ecosystem.</p>
+      </section>
+
+      <section id="diagrams" class="p-6 rounded-3xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-soft">
+        <h2 class="text-2xl font-semibold mb-4">Diagrams & Flowcharts (for PDF)</h2>
+        <ol class="list-decimal pl-5 space-y-2 text-zinc-700 dark:text-zinc-300">
+          <li>Organizational Flowchart: General Coordinators → all cells.</li>
+          <li>Workflow Diagram: Planning → Preparation → Execution → Review.</li>
+          <li>Succession Cycle: Sem 1 → Sem 4 handover.</li>
+          <li>Digital Tool Integration: Cells linked to Discord, Notion, GitHub, Task tools.</li>
+        </ol>
+        <p class="mt-2 text-sm text-zinc-500">Tip: Export this page as PDF (Ctrl/Cmd+P). Add your vector diagrams to the corresponding sections after export if needed.</p>
+      </section>
+
+      <!-- Footer -->
+      <footer class="mt-8 text-sm text-zinc-500 dark:text-zinc-400">
+        <p>Proposed by <strong>Parasmani Khunte</strong> • <a class="underline" href="mailto:parasmanikhunte@gmail.com">parasmanikhunte@gmail.com</a> • <a class="underline" href="tel:+918103713757">+91 81037 13757</a></p>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Search Dialog -->
+  <div id="searchDialog" class="no-print fixed inset-0 hidden items-center justify-center bg-black/50 p-4">
+    <div class="w-full max-w-2xl rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-soft">
+      <div class="flex items-center gap-2 p-3 border-b border-zinc-200 dark:border-zinc-800">
+        <input id="searchInput" type="text" class="w-full p-3 rounded-xl bg-zinc-100 dark:bg-zinc-800 outline-none" placeholder="Search keywords (e.g., Finance, Workflow, Alumni)…" />
+        <button id="searchClose" class="px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700">Esc</button>
+      </div>
+      <div id="searchResults" class="max-h-80 overflow-y-auto p-3 text-sm"></div>
+    </div>
+  </div>
+
+  <!-- Back to top -->
+  <a href="#" class="no-print fixed bottom-5 right-5 rounded-full shadow-soft p-3 bg-emerald-600 text-white hover:bg-emerald-700" aria-label="Back to top">↑</a>
+
+  <script src="script.js"></script>
+</body>
+</html>
