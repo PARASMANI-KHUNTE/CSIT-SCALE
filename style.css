@@ -7,6 +7,99 @@ body {
   .no-print { display: none !important; }
   body { color: #000; padding-top: 0; } /* Reset padding for printing */
   a[href]:after { content: ""; }
+
+/* Active navigation link styles */
+.toc-link {
+  color: #52525b; /* zinc-600 */
+  transition: color 200ms ease-in-out;
+}
+
+.dark .toc-link {
+  color: #a1a1aa; /* dark:zinc-400 */
+}
+
+.toc-link:hover {
+  color: #059669; /* emerald-600 */
+}
+
+.dark .toc-link:hover {
+  color: #34d399; /* dark:emerald-400 */
+}
+
+.toc-link.active {
+  color: #059669; /* emerald-600 */
+  font-weight: 600; /* semibold */
+  position: relative;
+  padding-left: 8px;
+}
+
+.dark .toc-link.active {
+  color: #34d399; /* dark:emerald-400 */
+}
+
+.toc-link.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 70%;
+  width: 3px;
+  background-color: #10b981; /* emerald-500 */
+  border-radius: 9999px; /* rounded-full */
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Ensure proper spacing for anchor links */
+[id] {
+  scroll-margin-top: 120px;
+}
+
+/* Mermaid diagram styles */
+.mermaid {
+  width: 100%;
+  max-width: 100%;
+  overflow: auto;
+  margin: 1rem 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+.mermaid svg {
+  max-width: 100%;
+  height: auto !important;
+}
+
+/* Adjust diagram container padding */
+[class*="mermaid"] {
+  padding: 0.5rem;
+  background: white;
+  border-radius: 0.5rem;
+  margin: 0.5rem 0;
+}
+
+.dark [class*="mermaid"] {
+  background: #1e1e1e;
+}
+
+/* Ensure diagrams don't overflow on mobile */
+@media (max-width: 768px) {
+  .mermaid {
+    font-size: 12px;
+  }
+  
+  .mermaid .node rect,
+  .mermaid .node circle,
+  .mermaid .node polygon {
+    rx: 4px;
+    ry: 4px;
+  }
+}
+
+/* Print styles */
 }
 
 @media (max-width: 1023px) {

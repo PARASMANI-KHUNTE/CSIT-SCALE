@@ -1,30 +1,145 @@
 // Theme toggle with persistence
 const root = document.documentElement;
 const themeToggle = document.getElementById('themeToggle');
-function setTheme(mode){
-  if(mode==='dark'){ root.classList.add('dark'); localStorage.setItem('theme','dark'); themeToggle.textContent='☀️'; }
-  else { root.classList.remove('dark'); localStorage.setItem('theme','light'); themeToggle.textContent='🌙'; }
+const themeToggleMobile = document.getElementById('themeToggleMobile');
+
+// Function to update Mermaid theme based on current theme
+function updateMermaidTheme() {
+  const isDark = document.documentElement.classList.contains('dark');
+  mermaid.initialize({
+    ...mermaid.mermaidAPI.getConfig(),
+    theme: isDark ? 'dark' : 'default'
+  });
+  // Re-render all diagrams
+  mermaid.init(undefined, '.mermaid');
 }
-setTheme(localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
-themeToggle.addEventListener('click',()=>{ 
-  setTheme(root.classList.contains('dark') ? 'light' : 'dark');
+
+// Watch for theme changes
+const observer = new MutationObserver((mutations) => {
+  mutations.forEach((mutation) => {
+    if (mutation.attributeName === 'class') {
+      updateMermaidTheme();
+    }
+  });
+});
+
+// Start observing the document with the configured parameters
+observer.observe(document.documentElement, { attributes: true });
+
+function setTheme(mode){
+  if(mode==='dark'){ root.classList.add('dark'); localStorage.setItem('theme','dark'); }
+  else { root.classList.remove('dark'); localStorage.setItem('theme','light'); }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const themeToggles = [
+    themeToggle,
+    themeToggleMobile
+  ].filter(Boolean);
+  
+  const html = document.documentElement;
+  
+  // Check for saved theme preference or use system preference
+  const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  if (savedTheme) {
+    html.classList.add(savedTheme);
+    updateThemeToggles(savedTheme);
+  }
+
+  // Toggle theme on button click
+  themeToggles.forEach(toggle => {
+    toggle?.addEventListener('click', () => {
+      const isDark = html.classList.toggle('dark');
+      const theme = isDark ? 'dark' : 'light';
+      localStorage.setItem('theme', theme);
+      updateThemeToggles(theme);
+    });
+  });
+
+  // Update all theme toggle buttons
+  function updateThemeToggles(theme) {
+    themeToggles.forEach(button => {
+      if (button) {
+        button.textContent = theme === 'dark' ? '☀️' : '🌙';
+      }
+    });
+  }
+});
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    const targetId = this.getAttribute('href');
+    if (targetId === '#') return;
+    
+    const targetElement = document.querySelector(targetId);
+    if (targetElement) {
+      window.scrollTo({
+        top: targetElement.offsetTop - 100, // Adjust for header height
+        behavior: 'smooth'
+      });
+      
+      // Update URL without adding to history
+      history.replaceState(null, null, targetId);
+    }
+  });
 });
 
 // TOC active link highlighting
 const sections = Array.from(document.querySelectorAll('main [id]'));
 const tocLinks = Array.from(document.querySelectorAll('.toc-link'));
-const io = new IntersectionObserver((entries)=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      const id = '#' + entry.target.id;
-      tocLinks.forEach(a=>{
-        a.classList.toggle('text-emerald-600', a.getAttribute('href')===id);
-        a.classList.toggle('font-semibold', a.getAttribute('href')===id);
-      });
+
+// Highlight active section in TOC
+const updateActiveLink = () => {
+  const scrollPosition = window.scrollY + 120; // Adjust for header height + some padding
+  
+  // Find the current section in view
+  let currentSection = '';
+  sections.forEach(section => {
+    const sectionTop = section.offsetTop;
+    const sectionHeight = section.offsetHeight;
+    
+    if (scrollPosition >= sectionTop - 120 && scrollPosition < sectionTop + sectionHeight - 120) {
+      currentSection = '#' + section.id;
     }
   });
-}, { rootMargin: '-40% 0px -55% 0px', threshold: 0.01 });
-sections.forEach(sec=>io.observe(sec));
+  
+  // Update active state of TOC links
+  tocLinks.forEach(link => {
+    link.classList.toggle('active', link.getAttribute('href') === currentSection);
+  });
+};
+
+// Set up intersection observer for sections
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      updateActiveLink();
+    }
+  });
+}, {
+  rootMargin: '-20% 0px -70% 0px',
+  threshold: 0.1
+});
+
+// Observe all sections
+sections.forEach(section => io.observe(section));
+
+// Update active link on scroll
+let isScrolling;
+window.addEventListener('scroll', () => {
+  // Clear our timeout throughout the scroll
+  window.clearTimeout(isScrolling);
+  
+  // Set a timeout to run after scrolling ends
+  isScrolling = setTimeout(() => {
+    updateActiveLink();
+  }, 100);
+}, { passive: true });
+
+// Initial update
+updateActiveLink();
 
 // Expand/Collapse helpers
 function expandAll(open=true){
